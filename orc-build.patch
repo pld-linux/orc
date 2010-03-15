@@ -1,0 +1,10 @@
+--- orc-0.4.3/orc/Makefile.am~	2009-12-12 01:29:41.000000000 +0100
++++ orc-0.4.3/orc/Makefile.am	2010-03-15 20:59:45.741467639 +0100
+@@ -8,6 +8,7 @@
+ 	-no-undefined -export-symbols-regex 'orc_'
+ liborc_@ORC_MAJORMINOR@_la_CFLAGS = $(ORC_CFLAGS) \
+ 	-DORC_ENABLE_UNSTABLE_API
++liborc_@ORC_MAJORMINOR@_la_LIBADD = -lm
+ 
+ liborc_@ORC_MAJORMINOR@_la_SOURCES = \
+ 	orc.c \
