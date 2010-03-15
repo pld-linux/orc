@@ -1,3 +1,4 @@
+%define	libver	0.4
 Summary:	The Oil Runtime Compiler
 Name:		orc
 Version:	0.4.3
@@ -8,11 +9,17 @@ Source0:	http://code.entropywave.com/download/orc/%{name}-%{version}.tar.gz
 # Source0-md5:	9b2e7030c8df8a0d371115869fe5685a
 Patch0:		%{name}-build.patch
 URL:		http://code.entropywave.com/projects/orc/
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	gtk-doc
+BuildRequires:	libtool
+BuildRequires:	pkgconfig
+BuildRequires:	which
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Orc is a library and set of tools for compiling and executing very
-simple programs that operate on arrays of data. The “language” is a
+simple programs that operate on arrays of data. The "language" is a
 generic assembly language that represents many of the features
 available in SIMD architectures, including saturated addition and
 subtraction, and many arithmetic operations.
@@ -71,19 +78,24 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README TODO
 %attr(755,root,root) %{_bindir}/orcc
-%attr(755,root,root) %{_libdir}/liborc-*.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liborc-*.so.0
+%attr(755,root,root) %{_libdir}/liborc-%{libver}.so.*.*.*
+%attr(755,root,root) %{_libdir}/liborc-*-%{libver}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/liborc-%{libver}.so.0
+%attr(755,root,root) %ghost %{_libdir}/liborc-*-%{libver}.so.0
 %dir %{_libdir}/orc
 %attr(755,root,root) %{_libdir}/orc/*
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/liborc-*.so
-%{_libdir}/liborc-*.la
-%{_includedir}/orc-*
-%{_pkgconfigdir}/orc-*.pc
+%attr(755,root,root) %{_libdir}/liborc-%{libver}.so
+%attr(755,root,root) %{_libdir}/liborc-*-%{libver}.so
+%{_libdir}/liborc-%{libver}.la
+%{_libdir}/liborc-*-%{libver}.la
+%{_includedir}/orc-%{libver}
+%{_pkgconfigdir}/orc-%{libver}.pc
 %{_gtkdocdir}/orc
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/liborc-*.a
+%{_libdir}/liborc-%{libver}.a
+%{_libdir}/liborc-*-%{libver}.a
