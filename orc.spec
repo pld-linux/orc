@@ -1,12 +1,12 @@
 %define	libver	0.4
 Summary:	The Oil Runtime Compiler
 Name:		orc
-Version:	0.4.3
+Version:	0.4.7
 Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://code.entropywave.com/download/orc/%{name}-%{version}.tar.gz
-# Source0-md5:	9b2e7030c8df8a0d371115869fe5685a
+# Source0-md5:	0228f053f0743efd69126cdd4ff92424
 Patch0:		%{name}-build.patch
 URL:		http://code.entropywave.com/projects/orc/
 BuildRequires:	autoconf
@@ -77,6 +77,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README TODO
+%attr(755,root,root) %{_bindir}/orc-bugreport
 %attr(755,root,root) %{_bindir}/orcc
 %attr(755,root,root) %{_libdir}/liborc-%{libver}.so.*.*.*
 %attr(755,root,root) %{_libdir}/liborc-*-%{libver}.so.*.*.*
