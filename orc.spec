@@ -52,6 +52,8 @@ Statyczna biblioteka orc.
 %setup -q
 %patch0 -p1
 
+rm -f m4/libtool.m4 m4/lt*.m4
+
 %build
 %{__libtoolize}
 %{__aclocal} -I m4
