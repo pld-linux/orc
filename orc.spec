@@ -93,8 +93,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %ghost %{_libdir}/liborc-%{libver}.so.0
 %attr(755,root,root) %{_libdir}/liborc-test-%{libver}.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/liborc-test-%{libver}.so.0
-#%dir %{_libdir}/orc
-#%attr(755,root,root) %{_libdir}/orc/*
 
 %files devel
 %defattr(644,root,root,755)
