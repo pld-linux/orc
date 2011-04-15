@@ -2,12 +2,12 @@
 Summary:	The Oil Runtime Compiler
 Summary(pl.UTF-8):	Oil Runtime Compiler - kompilator zoptymalizowanych pętli wewnętrznych
 Name:		orc
-Version:	0.4.11
+Version:	0.4.12
 Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://code.entropywave.com/download/orc/%{name}-%{version}.tar.gz
-# Source0-md5:	b8b0b148d319422c3ad250c29483b3c4
+# Source0-md5:	3130b63e6a1284b3e0796fab2450753a
 Patch0:		%{name}-build.patch
 URL:		http://code.entropywave.com/projects/orc/
 BuildRequires:	autoconf >= 2.58
