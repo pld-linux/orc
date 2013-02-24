@@ -1,0 +1,11 @@
+--- orc-0.4.17/configure.ac.orig	2013-02-20 06:38:04.000000000 +0100
++++ orc-0.4.17/configure.ac	2013-02-24 16:33:22.562894976 +0100
+@@ -10,7 +10,7 @@
+ ORC_MAJORMINOR=0.4
+ AC_SUBST(ORC_MAJORMINOR)
+ 
+-AM_CONFIG_HEADER(config.h)
++AC_CONFIG_HEADERS(config.h)
+ 
+ dnl CURRENT, REVISION, AGE
+ dnl - library source changed -> increment REVISION
