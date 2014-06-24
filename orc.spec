@@ -1,20 +1,26 @@
+#
+# Conditional build:
+%bcond_without	static_libs	# static libraries build
+
 %define	libver	0.4
 Summary:	The Oil Runtime Compiler
 Summary(pl.UTF-8):	Oil Runtime Compiler - kompilator zoptymalizowanych pętli wewnętrznych
 Name:		orc
-Version:	0.4.19
+Version:	0.4.21
 Release:	1
 License:	BSD
 Group:		Libraries
-Source0:	http://gstreamer.freedesktop.org/src/orc/%{name}-%{version}.tar.gz
-# Source0-md5:	2cacea6271aade6d592fe1622a136f19
+Source0:	http://gstreamer.freedesktop.org/src/orc/%{name}-%{version}.tar.xz
+# Source0-md5:	6c17d4570f4b54ac18ee9fd7760dc915
 URL:		http://code.entropywave.com/projects/orc/
-BuildRequires:	autoconf >= 2.58
-BuildRequires:	automake >= 1.6
-BuildRequires:	gtk-doc >= 1.0
-BuildRequires:	libtool
+BuildRequires:	autoconf >= 2.68
+BuildRequires:	automake >= 1:1.11
+BuildRequires:	gtk-doc >= 1.12
+BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	pkgconfig
+BuildRequires:	tar >= 1:1.22
 BuildRequires:	which
+BuildRequires:	xz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -67,6 +73,8 @@ Statyczna biblioteka orc.
 %{__autoheader}
 %{__automake}
 %configure \
+	--disable-silent-rules \
+	%{?with_static_libs:--enable-static} \
 	--with-html-dir=%{_gtkdocdir}
 %{__make}
 
@@ -103,7 +111,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_aclocaldir}/orc.m4
 %{_gtkdocdir}/orc
 
+%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/liborc-%{libver}.a
 %{_libdir}/liborc-test-%{libver}.a
+%endif
