@@ -6,12 +6,12 @@
 Summary:	The Oil Runtime Compiler
 Summary(pl.UTF-8):	Oil Runtime Compiler - kompilator zoptymalizowanych pętli wewnętrznych
 Name:		orc
-Version:	0.4.26
+Version:	0.4.27
 Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/orc/%{name}-%{version}.tar.xz
-# Source0-md5:	8e9bef677bae289d3324d81c337a4507
+# Source0-md5:	5837dc20dacb5b668935bbded10cbb61
 URL:		https://gstreamer.freedesktop.org/modules/orc.html
 BuildRequires:	autoconf >= 2.68
 BuildRequires:	automake >= 1:1.11
