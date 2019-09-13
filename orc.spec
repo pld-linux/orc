@@ -6,18 +6,19 @@
 Summary:	The Oil Runtime Compiler
 Summary(pl.UTF-8):	Oil Runtime Compiler - kompilator zoptymalizowanych pętli wewnętrznych
 Name:		orc
-Version:	0.4.29
+Version:	0.4.30
 Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/orc/%{name}-%{version}.tar.xz
-# Source0-md5:	25799917c7d31a891d5e32b83ad08f6d
+# Source0-md5:	75461700db04870a7cd1d0509a7a56b1
 URL:		https://gstreamer.freedesktop.org/modules/orc.html
-BuildRequires:	autoconf >= 2.68
-BuildRequires:	automake >= 1:1.11
+BuildRequires:	gcc >= 5:3.2
 BuildRequires:	gtk-doc >= 1.12
-BuildRequires:	libtool >= 2:2.2.6
+BuildRequires:	meson >= 0.47.0
+BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
+BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	which
 BuildRequires:	xz
@@ -61,28 +62,32 @@ Static orc library.
 %description static -l pl.UTF-8
 Statyczna biblioteka orc.
 
+%package apidocs
+Summary:	API documentation for orc library
+Summary(pl.UTF-8):	Dokumentacja API biblioteki orc
+Group:		Documentation
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
+
+%description apidocs
+API documentation for orc library.
+
+%description apidocs -l pl.UTF-8
+Dokumentacja API biblioteki orc.
+
 %prep
 %setup -q
 
-%{__rm} m4/libtool.m4 m4/lt*.m4
-
 %build
-%{__libtoolize}
-%{__aclocal} -I m4
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure \
-	--disable-silent-rules \
-	%{?with_static_libs:--enable-static} \
-	--with-html-dir=%{_gtkdocdir}
-%{__make}
+%meson build
+
+%ninja_build -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+%ninja_install -C build
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -104,13 +109,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/liborc-%{libver}.so
 %attr(755,root,root) %{_libdir}/liborc-test-%{libver}.so
-%{_libdir}/liborc-%{libver}.la
-%{_libdir}/liborc-test-%{libver}.la
 %{_includedir}/orc-%{libver}
 %{_pkgconfigdir}/orc-%{libver}.pc
 %{_pkgconfigdir}/orc-test-%{libver}.pc
 %{_aclocaldir}/orc.m4
-%{_gtkdocdir}/orc
 
 %if %{with static_libs}
 %files static
@@ -118,3 +120,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/liborc-%{libver}.a
 %{_libdir}/liborc-test-%{libver}.a
 %endif
+
+%files apidocs
+%defattr(644,root,root,755)
+%{_gtkdocdir}/orc
