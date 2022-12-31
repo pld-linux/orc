@@ -1,23 +1,24 @@
 #
 # Conditional build:
-%bcond_without	static_libs	# static libraries build
+%bcond_without	static_libs	# static libraries
 
 %define	libver	0.4
 Summary:	The Oil Runtime Compiler
 Summary(pl.UTF-8):	Oil Runtime Compiler - kompilator zoptymalizowanych pętli wewnętrznych
 Name:		orc
-Version:	0.4.32
+Version:	0.4.33
 Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/orc/%{name}-%{version}.tar.xz
-# Source0-md5:	4fd61be43bb222fac1ecc486f4d055db
+# Source0-md5:	c8f62426f8fb89981b462fcaee7cc951
 URL:		https://gstreamer.freedesktop.org/modules/orc.html
 BuildRequires:	gcc >= 5:3.2
 BuildRequires:	gtk-doc >= 1.12
-BuildRequires:	meson >= 0.49.0
+BuildRequires:	meson >= 0.55.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.749
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	which
@@ -66,9 +67,7 @@ Statyczna biblioteka orc.
 Summary:	API documentation for orc library
 Summary(pl.UTF-8):	Dokumentacja API biblioteki orc
 Group:		Documentation
-%if 0%{?ver_ge "%{_rpmversion}" "4.6"}
 BuildArch:	noarch
-%endif
 
 %description apidocs
 API documentation for orc library.
