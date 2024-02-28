@@ -79,7 +79,8 @@ Dokumentacja API biblioteki orc.
 %setup -q
 
 %build
-%meson build
+%meson build \
+	%{!?with_static_libs:--default-library=shared}
 
 %ninja_build -C build
 
