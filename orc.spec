@@ -13,6 +13,7 @@ Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/orc/%{name}-%{version}.tar.xz
 # Source0-md5:	de1de1bdd9b35252035a3b996afc9425
 URL:		https://gstreamer.freedesktop.org/modules/orc.html
+BuildRequires:	automake
 BuildRequires:	gcc >= 5:3.2
 BuildRequires:	gtk-doc >= 1.12
 BuildRequires:	meson >= 0.55.0
