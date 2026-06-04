@@ -1,22 +1,23 @@
 #
 # Conditional build:
+%bcond_without	apidocs		# API documentation (hotdoc based)
 %bcond_without	static_libs	# static libraries
 
 %define	libver	0.4
 Summary:	The Oil Runtime Compiler
 Summary(pl.UTF-8):	Oil Runtime Compiler - kompilator zoptymalizowanych pętli wewnętrznych
 Name:		orc
-Version:	0.4.41
+Version:	0.4.42
 Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	https://gstreamer.freedesktop.org/src/orc/%{name}-%{version}.tar.xz
-# Source0-md5:	16f82f66d1c3988d01c945278bf01fde
+# Source0-md5:	b8b4e43d46a62b32150ed5e9833f1d55
 URL:		https://gstreamer.freedesktop.org/modules/orc.html
 BuildRequires:	gcc >= 5:3.2
 BuildRequires:	glibc-devel >= 6:2.7
-BuildRequires:	gtk-doc >= 1.12
-BuildRequires:	meson >= 0.60.0
+%{?with_apidocs:BuildRequires:	hotdoc}
+BuildRequires:	meson >= 1.3.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-build >= 4.6
@@ -81,7 +82,13 @@ Dokumentacja API biblioteki orc.
 
 %build
 %meson \
-	%{!?with_static_libs:--default-library=shared}
+	%{!?with_static_libs:--default-library=shared} \
+	-Dbenchmarks=disabled \
+	-Dexamples=disabled \
+	-Dhotdoc=%{__enabled_disabled apidocs} \
+	-Dorc-test=enabled \
+	-Dtests=disabled \
+	-Dtools=enabled
 
 %meson_build
 
@@ -101,15 +108,15 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING README RELEASE ROADMAP.md
 %attr(755,root,root) %{_bindir}/orc-bugreport
 %attr(755,root,root) %{_bindir}/orcc
-%attr(755,root,root) %{_libdir}/liborc-%{libver}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liborc-%{libver}.so.0
-%attr(755,root,root) %{_libdir}/liborc-test-%{libver}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liborc-test-%{libver}.so.0
+%{_libdir}/liborc-%{libver}.so.*.*.*
+%ghost %{_libdir}/liborc-%{libver}.so.0
+%{_libdir}/liborc-test-%{libver}.so.*.*.*
+%ghost %{_libdir}/liborc-test-%{libver}.so.0
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/liborc-%{libver}.so
-%attr(755,root,root) %{_libdir}/liborc-test-%{libver}.so
+%{_libdir}/liborc-%{libver}.so
+%{_libdir}/liborc-test-%{libver}.so
 %{_includedir}/orc-%{libver}
 %{_pkgconfigdir}/orc-%{libver}.pc
 %{_pkgconfigdir}/orc-test-%{libver}.pc
@@ -121,6 +128,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/liborc-test-%{libver}.a
 %endif
 
+%if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%{_gtkdocdir}/orc
+%{_docdir}/orc
+%endif
